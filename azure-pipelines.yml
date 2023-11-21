@@ -1,0 +1,25 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: RunAnsible
+  steps:
+  - checkout: self
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '3.x'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - script: |
+      python3 -m pip install --upgrade pip
+      pip install ansible
+    displayName: 'Install Ansible'
+
+  - script: |
+      ansible-playbook -i ./inventory.ini ./helloworld.yml
+    displayName: 'Run Ansible Playbook'
