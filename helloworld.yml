@@ -1,0 +1,6 @@
+---
+- name: Hello World
+  hosts: localhost
+  tasks:
+    - name: Execute HelloWorld.py
+      command: python3 pyazure_devops_test\helloworld.py
